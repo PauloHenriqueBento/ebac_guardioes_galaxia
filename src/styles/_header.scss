@@ -1,0 +1,27 @@
+.header{
+    background-color: #202020;
+    &__container{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    h1 {
+        line-height: 0;
+    }
+
+    &__logo{
+        line-height: 0;
+        &--animated{
+            svg{
+                width: 36px;
+                path:first-of-type{
+                    transform: translateX(calc(36px - 130px - 36px));
+                    transition: width .15s .5s;
+                }
+            }
+        }
+    }
+}
