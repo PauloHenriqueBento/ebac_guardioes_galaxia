@@ -1,5 +1,16 @@
 .header{
     background-color: #202020;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transition: transform .3s;
+
+    &--hidden{
+        transform: translateY(-100%);
+        transition: transform .3s;
+    }
+
     &__container{
         max-width: 1200px;
         margin: 0 auto;
@@ -14,12 +25,21 @@
 
     &__logo{
         line-height: 0;
+        svg{
+            transition: width .15s .5s;
+            width: 130px;
+            path:first-of-type{
+                transition: transform .15s .5s;
+            }
+        }
+        
         &--animated{
             svg{
                 width: 36px;
+
                 path:first-of-type{
                     transform: translateX(calc(36px - 130px - 36px));
-                    transition: width .15s .5s;
+                    transition: transform .15s .5s;
                 }
             }
         }
