@@ -49,13 +49,17 @@
             width: 25vw;
 
             @media (max-width: 768px) {
-                margin: 25px 0;
+                display: none;
             }
         }
 
         div{
             margin-left: 40px;
             border-radius: 30px;
+
+            @media (max-width: 768px) {
+                margin: 40px 0;
+            }
         }
 
     }
