@@ -44,4 +44,15 @@
             }
         }
     }
+
+    &__search{
+        input {
+            background-color: #303030;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            width: 100%;
+        }
+    }
 }
