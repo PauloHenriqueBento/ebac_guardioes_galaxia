@@ -53,12 +53,28 @@
             }
         }
 
-        div{
+        &__trailer {
             margin-left: 40px;
             border-radius: 30px;
+            position: relative;
+            width: 100%;
+            padding-bottom: 42.1875%; /* Aspect ratio 16:9 */
+            height: 0;
+            overflow: hidden;
 
             @media (max-width: 768px) {
                 margin: 40px 0;
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
             }
         }
 
