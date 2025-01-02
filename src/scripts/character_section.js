@@ -13,27 +13,43 @@ export function hideAllOverlay() {
     }
 }
 
+// Função para verificar o layout atual
+function isMobileView() {
+    return window.innerWidth <= 768;
+}
+
 // Função principal
 export function setupCharacterSection() {
     const faces = document.querySelectorAll('[data-character-face]');
     const list = document.querySelector('.characters__main__list');
     let isDragging = false;
-    let startY;
-    let scrollTop;
+    let startX, startY;
+    let scrollLeft, scrollTop;
 
     // Efeito de Drag
     const handleScrollLoop = () => {
-        const maxScrollTop = list.scrollHeight - list.clientHeight;
-        if (list.scrollTop <= 0) {
-            list.scrollTop = maxScrollTop;
-        } else if (list.scrollTop >= maxScrollTop) {
-            list.scrollTop = 0;
+        if (isMobileView()) {
+            const maxScrollLeft = list.scrollWidth - list.clientWidth;
+            if (list.scrollLeft <= 0) {
+                list.scrollLeft = maxScrollLeft;
+            } else if (list.scrollLeft >= maxScrollLeft) {
+                list.scrollLeft = 0;
+            }
+        } else {
+            const maxScrollTop = list.scrollHeight - list.clientHeight;
+            if (list.scrollTop <= 0) {
+                list.scrollTop = maxScrollTop;
+            } else if (list.scrollTop >= maxScrollTop) {
+                list.scrollTop = 0;
+            }
         }
     };
 
     list.addEventListener('mousedown', (e) => {
         isDragging = true;
+        startX = e.pageX - list.offsetLeft;
         startY = e.pageY - list.offsetTop;
+        scrollLeft = list.scrollLeft;
         scrollTop = list.scrollTop;
         list.style.cursor = 'grabbing';
     });
@@ -52,14 +68,19 @@ export function setupCharacterSection() {
         if (!isDragging) return;
         e.preventDefault();
 
-        const y = e.pageY - list.offsetTop;
-        const walk = y - startY;
-        list.scrollTop = scrollTop - walk;
+        if (isMobileView()) {
+            const x = e.pageX - list.offsetLeft;
+            const walk = x - startX;
+            list.scrollLeft = scrollLeft - walk;
+        } else {
+            const y = e.pageY - list.offsetTop;
+            const walk = y - startY;
+            list.scrollTop = scrollTop - walk;
+        }
 
         handleScrollLoop();
     });
 
-    // Esconder e mostrar personagens
     for (const face of faces) {
         face.addEventListener('click', () => {
             const id = face.getAttribute('data-character-face');
@@ -73,4 +94,8 @@ export function setupCharacterSection() {
             overlay.classList.add('characters__main__list__item__overlay--is-active');
         });
     }
+
+    window.addEventListener('resize', () => {
+        list.style.cursor = 'grab';
+    });
 }
